@@ -70,6 +70,15 @@ builder.Services.AddOpenApi(options =>
     options.AddSchemaTransformer(LocalizedOpenApiAssembler.TransformSchemaAsync);
 });
 
+// Add CORS Policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllPolicy",
+        policy => policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
+
 // Add Database Connection
 
 // Configure Database Context and route EF logs through the app logger pipeline.
@@ -124,6 +133,9 @@ localizationOptions.ApplyCurrentCultureToResponseHeaders = true;
 app.UseRequestLocalization(localizationOptions);
 
 app.UseHttpsRedirection();
+
+// Apply CORS Policy
+app.UseCors("AllowAllPolicy");
 
 app.UseAuthorization();
 
