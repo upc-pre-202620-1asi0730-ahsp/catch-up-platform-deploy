@@ -17,6 +17,9 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Forzar que escuche en el puerto 8080 para Render
+builder.WebHost.UseUrls("http://0.0.0.0:8080");
+
 // Add services to the container.
 
 // Configure Lower Case URLs
